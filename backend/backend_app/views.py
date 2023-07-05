@@ -3,16 +3,18 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Snippet
 from .serializers import SnippetSerializer
+import time
 
 
 class VerifySnippetTitleView(APIView):
     def post(self, request):
+        time.sleep(3)
         try:
             Snippet.objects.get(title=request.data['title'])
             return Response({
                 "status": "false",
                 "message": "Title is not available (╥﹏╥)"
-            }, status=status.HTTP_409_CONFLICT)
+            }, status=status.HTTP_200_OK)
         except Snippet.DoesNotExist:
             return Response({
                 "status": "true",
