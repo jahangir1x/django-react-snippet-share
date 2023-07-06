@@ -8,22 +8,31 @@ import time
 
 class VerifySnippetTitleView(APIView):
     def post(self, request):
-        time.sleep(3)
+        time.sleep(1)
+        if (request.data['title'] == ''):
+            return Response({
+                "status": "false",
+                "title": request.data['title'],
+                "message": "Title is not available (╥﹏╥)"
+            }, status=status.HTTP_200_OK)
         try:
             Snippet.objects.get(title=request.data['title'])
             return Response({
                 "status": "false",
+                "title": request.data['title'],
                 "message": "Title is not available (╥﹏╥)"
             }, status=status.HTTP_200_OK)
         except Snippet.DoesNotExist:
             return Response({
                 "status": "true",
+                "title": request.data['title'],
                 "message": "Title is available"
             }, status=status.HTTP_200_OK)
 
 
 class SnippetRetrieveView(APIView):
     def get(self, request, title):
+        time.sleep(1)
         try:
             snippet = Snippet.objects.get(title=title)
             serialized_snippet = SnippetSerializer(snippet)
@@ -34,12 +43,12 @@ class SnippetRetrieveView(APIView):
             return Response({
                 "status": "false",
                 "message": "Snippet does not exist (╥﹏╥)",
-            }, status=status.HTTP_404_NOT_FOUND)
+            }, status=status.HTTP_200_OK)
 
 
 class SnippetCreateView(APIView):
     def post(self, request):
-        
+        time.sleep(1)
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -52,4 +61,4 @@ class SnippetCreateView(APIView):
                 'status': 'false',
                 'message': 'bad request (╥﹏╥)',
             }
-            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+            return Response(response_data, status=status.HTTP_200_OK)

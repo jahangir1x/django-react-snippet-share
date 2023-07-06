@@ -6,8 +6,41 @@ const SnippetForm = () => {
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
     const [language, setLanguage] = useState("");
-    const [isTitleAvailable, setIsTitleAvailable] = useState(true);
+    const [isTitleAvailable, setIsTitleAvailable] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+    const availableLanguages = [
+        "Python",
+        "JavaScript",
+        "Java",
+        "C#",
+        "C++",
+        "TypeScript",
+        "PHP",
+        "Ruby",
+        "Go",
+        "Swift",
+        "Kotlin",
+        "Rust",
+        "Objective-C",
+        "Perl",
+        "Scala",
+        "Shell",
+        "R",
+        "MATLAB",
+        "Groovy",
+        "Lua",
+        "Dart",
+        "Haskell",
+        "Julia",
+        "PowerShell",
+        "VBA",
+        "F#",
+        "Ada",
+        "COBOL",
+        "Fortran",
+        "Lisp",
+    ];
 
     const handleTitleChange = async (e) => {
         const newTitle = e.target.value;
@@ -33,10 +66,38 @@ const SnippetForm = () => {
         }
     };
 
+    const handleLanguageChange = (e) => {
+        setLanguage(e.target.value);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Rest of the code to handle form submission
+        const snippetData = {
+            title,
+            text,
+            language,
+        };
+
+        try {
+            const response = await axios.post(
+                "http://localhost:8000/api/snippets/",
+                snippetData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            console.log("snippet created response:", response.data);
+
+            if (response.data.status === "true") {
+                window.location.href = `/${response.data.title}`;
+            }
+        } catch (error) {
+            console.error("Error creating snippet:", error);
+        }
     };
 
     return (
@@ -91,11 +152,14 @@ const SnippetForm = () => {
             <br />
             <label>
                 Language:
-                <input
-                    type="text"
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                />
+                <select value={language} onChange={handleLanguageChange}>
+                    <option value="">Select Language</option>
+                    {availableLanguages.map((lang, index) => (
+                        <option key={index} value={lang}>
+                            {lang}
+                        </option>
+                    ))}
+                </select>
             </label>
             <br />
             <button type="submit">Create Snippet</button>
