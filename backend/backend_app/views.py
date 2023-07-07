@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Snippet
+from . import models
 from .serializers import SnippetSerializer
 import time
 
@@ -48,6 +49,7 @@ class SnippetRetrieveView(APIView):
 
 class SnippetCreateView(APIView):
     def post(self, request):
+        print(request.data)
         time.sleep(1)
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
@@ -62,3 +64,8 @@ class SnippetCreateView(APIView):
                 'message': 'bad request (╥﹏╥)',
             }
             return Response(response_data, status=status.HTTP_200_OK)
+
+class GetAvailableLanguages(APIView):
+    def get(self, request):
+        time.sleep(1)
+        return Response(models.LANGUAGES, status=status.HTTP_200_OK)

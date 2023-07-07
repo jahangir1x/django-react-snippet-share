@@ -8,4 +8,6 @@ urlpatterns = [
 
     path("utils/verify-title/",
          views.VerifySnippetTitleView.as_view(), name='verify-snippet-title'),
+    path("utils/languages/", views.GetAvailableLanguages.as_view(),
+         name='get-available-languages'),
 ]
