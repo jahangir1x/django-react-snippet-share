@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FaCopy } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 
 const SnippetView = () => {
@@ -78,22 +81,29 @@ const SnippetView = () => {
                 Language: <b>{snippet.language}</b>
             </p>
             {showToast && (
-                <div
-                    className="toast"
-                    style={{
-                        position: "fixed",
-                        top: "1rem",
-                        right: "1rem",
-                        zIndex: 1000,
-                    }}
-                >
-                    <div className="toast-header">
-                        {/* <img src="..." className="rounded me-2" alt="..." /> */}
-                        <strong className="me-auto">Snippet Share</strong>
-                        <button type="button" className="btn-close"></button>
-                    </div>
-                    <div className="toast-body">Snippet copied!</div>
-                </div>
+                <ToastContainer className="p-3" position={"bottom-end"}>
+                    <Toast
+                        show={showToast}
+                        onClose={() => setShowToast(!showToast)}
+                        delay={3000}
+                        autohide
+                    >
+                        <Toast.Header>
+                            <strong className="me-auto">Snippet Share</strong>
+                        </Toast.Header>
+                        <Toast.Body>
+                            Snippet copied<span> </span>
+                            <IconContext.Provider
+                                value={{
+                                    color: "green",
+                                    size: "1.2em",
+                                }}
+                            >
+                                <FaCheck />
+                            </IconContext.Provider>
+                        </Toast.Body>
+                    </Toast>
+                </ToastContainer>
             )}
         </div>
     );
