@@ -16,7 +16,7 @@ const SnippetView = () => {
         const fetchSnippet = async () => {
             try {
                 const response = await axios.get(
-                    `http://127.0.0.1:8000/api/snippets/${title}`
+                    `https://snippets-q9co.onrender.com/api/snippets/${title}`
                 );
                 if (response.data.status === "true") {
                     setSnippet(response.data);

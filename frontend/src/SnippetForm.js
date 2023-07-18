@@ -112,7 +112,7 @@ const SnippetForm = () => {
         try {
             setIsCheckingTitle(true);
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/utils/verify-title/`,
+                `https://snippets-q9co.onrender.com/api/utils/verify-title/`,
                 { title: newTitle },
                 {
                     headers: {
@@ -144,7 +144,7 @@ const SnippetForm = () => {
 
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8000/api/snippets/`,
+                `https://snippets-q9co.onrender.com/api/snippets/`,
                 snippetData,
                 {
                     headers: {

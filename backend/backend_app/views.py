@@ -9,7 +9,7 @@ import time
 
 class VerifySnippetTitleView(APIView):
     def post(self, request):
-        time.sleep(1)
+        # time.sleep(1)
         if (request.data['title'] == ''):
             return Response({
                 "status": "false",
@@ -33,7 +33,7 @@ class VerifySnippetTitleView(APIView):
 
 class SnippetRetrieveView(APIView):
     def get(self, request, title):
-        time.sleep(1)
+        # time.sleep(1)
         try:
             snippet = Snippet.objects.get(title=title)
             serialized_snippet = SnippetSerializer(snippet)
@@ -50,7 +50,7 @@ class SnippetRetrieveView(APIView):
 class SnippetCreateView(APIView):
     def post(self, request):
         print(request.data)
-        time.sleep(1)
+        # time.sleep(1)
         serializer = SnippetSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -65,7 +65,8 @@ class SnippetCreateView(APIView):
             }
             return Response(response_data, status=status.HTTP_200_OK)
 
+
 class GetAvailableLanguages(APIView):
     def get(self, request):
-        time.sleep(1)
+        # time.sleep(1)
         return Response(models.LANGUAGES, status=status.HTTP_200_OK)
