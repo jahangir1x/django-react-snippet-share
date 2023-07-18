@@ -16,7 +16,7 @@ const SnippetView = () => {
         const fetchSnippet = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/api/snippets/${title}`
+                    `http://127.0.0.1:8000/api/snippets/${title}`
                 );
                 if (response.data.status === "true") {
                     setSnippet(response.data);

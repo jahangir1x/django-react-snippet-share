@@ -7,7 +7,7 @@ import SnippetView from "./SnippetView";
 
 const App = () => {
     return (
-        <Router>
+        <Router basename="/snippets">
             <h1 className="text-center display-4">Snippet Share</h1>
             <Routes>
                 <Route exact path="/" Component={SnippetForm} />
