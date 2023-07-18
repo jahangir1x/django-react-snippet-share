@@ -156,7 +156,7 @@ const SnippetForm = () => {
             console.log("snippet created response:", response.data);
 
             if (response.data.status === "true") {
-                window.location.href = `/${response.data.title}`;
+                window.location.href = `/snippets/${response.data.title}`;
             }
         } catch (error) {
             console.error("Error creating snippet:", error);
